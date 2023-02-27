@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/usms-sdk-go/um/log"
+	"github.com/uSpeedo/usms-sdk-go/um/log"
 )
 
 func TestFuncWaiter_WaitForCompletion(t *testing.T) {

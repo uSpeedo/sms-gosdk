@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/usms-sdk-go/private/protocol/http"
-	"github.com/usms-sdk-go/um/auth"
-	"github.com/usms-sdk-go/um/config"
+	"github.com/uSpeedo/usms-sdk-go/private/protocol/http"
+	"github.com/uSpeedo/usms-sdk-go/um/auth"
+	"github.com/uSpeedo/usms-sdk-go/um/config"
 )
 
 type JSONEncoder struct {

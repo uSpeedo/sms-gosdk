@@ -1,8 +1,8 @@
 package um
 
 import (
-	"github.com/usms-sdk-go/um/request"
-	"github.com/usms-sdk-go/um/response"
+	"github.com/uSpeedo/usms-sdk-go/um/request"
+	"github.com/uSpeedo/usms-sdk-go/um/response"
 )
 
 func (c *Client) NewGenericRequest() request.GenericRequest {

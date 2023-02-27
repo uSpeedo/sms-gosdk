@@ -1,4 +1,4 @@
-module github.com/usms-sdk-go
+module github.com/uSpeedo/usms-sdk-go
 
 require (
 	github.com/pkg/errors v0.8.0

@@ -4,7 +4,7 @@ Package response is the response of service
 package response
 
 import (
-	"github.com/usms-sdk-go/um/request"
+	"github.com/uSpeedo/usms-sdk-go/um/request"
 )
 
 // Common describe a response of action,

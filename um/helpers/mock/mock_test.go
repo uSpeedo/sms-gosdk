@@ -6,12 +6,12 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/usms-sdk-go/um"
-	"github.com/usms-sdk-go/um/auth"
-	"github.com/usms-sdk-go/um/request"
-	"github.com/usms-sdk-go/um/response"
+	"github.com/uSpeedo/usms-sdk-go/um"
+	"github.com/uSpeedo/usms-sdk-go/um/auth"
+	"github.com/uSpeedo/usms-sdk-go/um/request"
+	"github.com/uSpeedo/usms-sdk-go/um/response"
 
-	proto "github.com/usms-sdk-go/private/protocol/http"
+	proto "github.com/uSpeedo/usms-sdk-go/private/protocol/http"
 )
 
 func newTestClient() *um.Client {

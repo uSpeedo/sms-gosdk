@@ -2,7 +2,7 @@
     <img src="https://ucloud-sdk.dl.ufileos.com/logos%2Flogo-mini.png" />
 </p>
 
-<h1 align="center">Go SDK</h1>
+<h1 align="center">USMS Go SDK</h1>
 
 - [Website](https://www.ucloud.cn/)
 - [Documentation](https://docs.ucloud.cn/opensdk-go/README)
@@ -16,7 +16,7 @@
 ### Use `go get`
 
 ```bash
-go get github.com/usms-sdk-go
+go get github.com/uSpeedo/usms-sdk-go
 ```
 
 **Note** if meet network problem, you can use go proxy to speed up the downloaded, eg: use GOPROXY environment variable
@@ -32,7 +32,7 @@ Replay the command to retry installation.
 Add the following snippet to any code.
 
 ```go
-import _ "github.com/usms-sdk-go"
+import _ "github.com/uSpeedo/usms-sdk-go"
 ```
 
 And execute this commands：
@@ -49,12 +49,12 @@ go mod tidy
 ### Use `dep`
 
 ```bash
-dep ensure -add github.com/usms-sdk-go
+dep ensure -add github.com/uSpeedo/usms-sdk-go
 ```
 
 ## First Using
 
-Currently, Go SDK use `PublicKey/PrivateKey` as authentication method, the key can be found from：
+Currently, Go SDK use `AccessKeyId/AccessKeySecret` as authentication method, the key can be found from：
 
 - [UAPI Key Generation](https://console.ucloud.cn/uapi/apikey)
 
@@ -66,11 +66,11 @@ package main
 import (
 	"fmt"
 
-	"github.com/usms-sdk-go/services/usms"
-	"github.com/usms-sdk-go/um"
-	"github.com/usms-sdk-go/um/auth"
-	"github.com/usms-sdk-go/um/config"
-	"github.com/usms-sdk-go/um/log"
+	"github.com/uSpeedo/usms-sdk-go/services/usms"
+	"github.com/uSpeedo/usms-sdk-go/um"
+	"github.com/uSpeedo/usms-sdk-go/um/auth"
+	"github.com/uSpeedo/usms-sdk-go/um/config"
+	"github.com/uSpeedo/usms-sdk-go/um/log"
 )
 
 func main() {
@@ -105,9 +105,10 @@ func main() {
 	fmt.Printf("%+v", resp)
 }
 
+
 ```
 
 ## Feedback & Contribution
 
-- [Issue](https://github.com/usms-sdk-go/issues)
-- [Pull Request](https://github.com/usms-sdk-go/pulls)
+- [Issue](https://github.com/uSpeedo/usms-gosdk/issues)
+- [Pull Request](https://github.com/uSpeedo/usms-gosdk/pulls)

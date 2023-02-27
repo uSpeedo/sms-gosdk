@@ -3,7 +3,7 @@ package mock
 import (
 	"encoding/json"
 
-	"github.com/usms-sdk-go/private/protocol/http"
+	"github.com/uSpeedo/usms-sdk-go/private/protocol/http"
 )
 
 // Request is the parameters of an action invoking

@@ -1,6 +1,6 @@
 package um
 
-import "github.com/usms-sdk-go/um/config"
+import "github.com/uSpeedo/usms-sdk-go/um/config"
 
 // Config is the config of um sdk, use for setting up client
 type Config = config.Config

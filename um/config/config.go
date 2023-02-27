@@ -3,7 +3,7 @@ package config
 import (
 	"time"
 
-	"github.com/usms-sdk-go/um/log"
+	"github.com/uSpeedo/usms-sdk-go/um/log"
 )
 
 // Config is the config of um sdk, use for setting up client

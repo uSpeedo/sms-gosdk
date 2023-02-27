@@ -4,11 +4,11 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/usms-sdk-go/private/protocol/http"
-	uerr "github.com/usms-sdk-go/um/error"
-	"github.com/usms-sdk-go/um/log"
-	"github.com/usms-sdk-go/um/request"
-	"github.com/usms-sdk-go/um/response"
+	"github.com/uSpeedo/usms-sdk-go/private/protocol/http"
+	uerr "github.com/uSpeedo/usms-sdk-go/um/error"
+	"github.com/uSpeedo/usms-sdk-go/um/log"
+	"github.com/uSpeedo/usms-sdk-go/um/request"
+	"github.com/uSpeedo/usms-sdk-go/um/response"
 )
 
 // RequestHandler receive request and write data into this request memory area

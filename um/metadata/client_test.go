@@ -5,8 +5,8 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/usms-sdk-go/private/protocol/http"
-	"github.com/usms-sdk-go/um/helpers/mock"
+	"github.com/uSpeedo/usms-sdk-go/private/protocol/http"
+	"github.com/uSpeedo/usms-sdk-go/um/helpers/mock"
 )
 
 type MockedMetadataCase struct {

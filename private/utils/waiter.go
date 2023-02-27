@@ -4,7 +4,7 @@ import (
 	"errors"
 	"time"
 
-	"github.com/usms-sdk-go/um/log"
+	"github.com/uSpeedo/usms-sdk-go/um/log"
 )
 
 // Waiter to wait sth until it completed.

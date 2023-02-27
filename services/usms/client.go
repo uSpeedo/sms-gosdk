@@ -3,8 +3,8 @@
 package usms
 
 import (
-	"github.com/usms-sdk-go/um"
-	"github.com/usms-sdk-go/um/auth"
+	"github.com/uSpeedo/usms-sdk-go/um"
+	"github.com/uSpeedo/usms-sdk-go/um/auth"
 )
 
 // USMSClient is the client of USMS

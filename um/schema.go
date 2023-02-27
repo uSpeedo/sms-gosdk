@@ -1,7 +1,7 @@
 package um
 
 import (
-	"github.com/usms-sdk-go/um/request"
+	"github.com/uSpeedo/usms-sdk-go/um/request"
 )
 
 var (

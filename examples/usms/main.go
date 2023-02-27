@@ -3,11 +3,11 @@ package main
 import (
 	"fmt"
 
-	"github.com/usms-sdk-go/services/usms"
-	"github.com/usms-sdk-go/um"
-	"github.com/usms-sdk-go/um/auth"
-	"github.com/usms-sdk-go/um/config"
-	"github.com/usms-sdk-go/um/log"
+	"github.com/uSpeedo/usms-sdk-go/services/usms"
+	"github.com/uSpeedo/usms-sdk-go/um"
+	"github.com/uSpeedo/usms-sdk-go/um/auth"
+	"github.com/uSpeedo/usms-sdk-go/um/config"
+	"github.com/uSpeedo/usms-sdk-go/um/log"
 )
 
 func main() {

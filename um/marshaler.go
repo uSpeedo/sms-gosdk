@@ -7,12 +7,12 @@ import (
 	"strconv"
 	"strings"
 
-	uerr "github.com/usms-sdk-go/um/error"
+	uerr "github.com/uSpeedo/usms-sdk-go/um/error"
 
-	"github.com/usms-sdk-go/private/protocol/http"
-	"github.com/usms-sdk-go/um/request"
-	"github.com/usms-sdk-go/um/response"
-	"github.com/usms-sdk-go/um/version"
+	"github.com/uSpeedo/usms-sdk-go/private/protocol/http"
+	"github.com/uSpeedo/usms-sdk-go/um/request"
+	"github.com/uSpeedo/usms-sdk-go/um/response"
+	"github.com/uSpeedo/usms-sdk-go/um/version"
 )
 
 // SetupRequest will init request by client configuration

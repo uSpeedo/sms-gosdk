@@ -7,13 +7,13 @@ import (
 	"time"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/usms-sdk-go/private/protocol/http"
-	"github.com/usms-sdk-go/um/auth"
-	uerr "github.com/usms-sdk-go/um/error"
-	"github.com/usms-sdk-go/um/helpers/mock"
-	"github.com/usms-sdk-go/um/log"
-	"github.com/usms-sdk-go/um/request"
-	"github.com/usms-sdk-go/um/response"
+	"github.com/uSpeedo/usms-sdk-go/private/protocol/http"
+	"github.com/uSpeedo/usms-sdk-go/um/auth"
+	uerr "github.com/uSpeedo/usms-sdk-go/um/error"
+	"github.com/uSpeedo/usms-sdk-go/um/helpers/mock"
+	"github.com/uSpeedo/usms-sdk-go/um/log"
+	"github.com/uSpeedo/usms-sdk-go/um/request"
+	"github.com/uSpeedo/usms-sdk-go/um/response"
 )
 
 type clientFactory func() *Client

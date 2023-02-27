@@ -9,7 +9,7 @@ import (
 	"time"
 
 	"github.com/pkg/errors"
-	"github.com/usms-sdk-go/private/utils"
+	"github.com/uSpeedo/usms-sdk-go/private/utils"
 )
 
 var availableHTTPMethods = []string{"GET", "POST", "PUT", "DELETE", "OPTION", "HEAD", "PATCH"}

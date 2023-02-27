@@ -6,15 +6,15 @@ import (
 	"testing"
 	"time"
 
-	"github.com/usms-sdk-go/um/auth"
+	"github.com/uSpeedo/usms-sdk-go/um/auth"
 
 	"github.com/pkg/errors"
 	"github.com/stretchr/testify/assert"
 
-	uerr "github.com/usms-sdk-go/um/error"
-	"github.com/usms-sdk-go/um/log"
-	"github.com/usms-sdk-go/um/request"
-	"github.com/usms-sdk-go/um/response"
+	uerr "github.com/uSpeedo/usms-sdk-go/um/error"
+	"github.com/uSpeedo/usms-sdk-go/um/log"
+	"github.com/uSpeedo/usms-sdk-go/um/request"
+	"github.com/uSpeedo/usms-sdk-go/um/response"
 )
 
 const (

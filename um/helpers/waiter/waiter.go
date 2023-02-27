@@ -6,7 +6,7 @@ package waiter
 import (
 	"time"
 
-	"github.com/usms-sdk-go/um/log"
+	"github.com/uSpeedo/usms-sdk-go/um/log"
 )
 
 const graceRefreshTimeout = 30 * time.Second

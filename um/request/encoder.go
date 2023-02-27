@@ -3,7 +3,7 @@ package request
 import (
 	"encoding/base64"
 
-	"github.com/usms-sdk-go/private/protocol/http"
+	"github.com/uSpeedo/usms-sdk-go/private/protocol/http"
 )
 
 type Encoder interface {

@@ -7,7 +7,7 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/usms-sdk-go/private/protocol/http"
+	"github.com/uSpeedo/usms-sdk-go/private/protocol/http"
 )
 
 const globalEndpoint = "http://100.80.80.80"

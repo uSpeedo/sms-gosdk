@@ -4,9 +4,9 @@ import (
 	"os"
 	"time"
 
-	"github.com/usms-sdk-go/um"
-	"github.com/usms-sdk-go/um/auth"
-	"github.com/usms-sdk-go/um/log"
+	"github.com/uSpeedo/usms-sdk-go/um"
+	"github.com/uSpeedo/usms-sdk-go/um/auth"
+	"github.com/uSpeedo/usms-sdk-go/um/log"
 )
 
 func main() {

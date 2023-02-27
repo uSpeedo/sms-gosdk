@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/usms-sdk-go/um/auth"
+	"github.com/uSpeedo/usms-sdk-go/um/auth"
 )
 
 func main() {
