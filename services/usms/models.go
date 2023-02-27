@@ -42,24 +42,6 @@ type ReceiptPerSession struct {
 }
 
 /*
-OutSignature - 短信签名
-*/
-type OutSignature struct {
-
-	// 签名审核失败原因
-	ErrDesc string
-
-	// 签名内容
-	SigContent string
-
-	// 签名ID
-	SigId string
-
-	// 签名状态。0-待审核 1-审核中 2-审核通过 3-审核未通过 4-被禁用
-	Status int
-}
-
-/*
 OutTemplate - 短信模板
 */
 type OutTemplate struct {

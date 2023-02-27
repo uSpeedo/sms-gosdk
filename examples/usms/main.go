@@ -21,6 +21,7 @@ func main() {
 
 	// send request
 	req := client.NewSendUSMSMessageRequest()
+	req.AccountId = um.Int(1)
 	req.SigContent = um.String("...")
 	req.TemplateId = um.String("UTA2***50501BD")
 	req.PhoneNumbers = []string{
