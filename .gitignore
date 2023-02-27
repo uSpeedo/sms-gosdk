@@ -1,0 +1,29 @@
+# Temporary
+.*.swp
+.idea
+/.vs
+.DS_Store
+core.*
+debug
+debug.test
+.vscode
+*.*~
+*.html
+*.json
+
+# Executable
+bin/
+*.dll
+*.exe
+
+# Build
+coverage.out
+coverage.txt
+c.out
+
+# Debug Data
+examples/debug
+scripts/gen-apis.sh
+scripts/gen-tests.sh
+
+build/
