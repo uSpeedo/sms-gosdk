@@ -4,7 +4,9 @@ Package auth is the credential utilities of sdk
 package auth
 
 import (
-	"net/url"
+	"bytes"
+	"crypto/sha1"
+	"encoding/hex"
 	"time"
 )
 
@@ -13,8 +15,8 @@ type Credential struct {
 	// Access Key Secret
 	AccessKeySecret string
 
-	// STS token for temporary usage
-	SecurityToken string
+	// Access Key Id
+	AccessKeyId string
 
 	// Time the credentials will expire.
 	CanExpire bool
@@ -27,67 +29,36 @@ func NewCredential() Credential {
 }
 
 // CreateSign will encode query string to credential signature.
-func (c *Credential) CreateSign(query string) string {
-	payload := queryToMap(query)
-	return c.VerifyAc(payload)
+func (c *Credential) CreateSign(params map[string]interface{}) string {
+	query := mapToQuery(params)
+	return c.CalculateSignature(query)
 }
 
-// BuildCredentialedQuery will build query string with signature query param.
-func (c *Credential) BuildCredentialedQuery(params map[string]string) string {
-	payload := make(map[string]interface{})
-	for k, v := range params {
-		payload[k] = v
-	}
-	return mapToQuery(c.Apply(payload))
+func (c *Credential) MapToQuery(params map[string]interface{}) string {
+	query := mapToQuery(params)
+	return query
 }
 
-// Apply will return payload with credential and signature
-func (c *Credential) Apply(payload map[string]interface{}) map[string]interface{} {
-	payload = c.applyDefaults(payload)
-	payload["Signature"] = sign(c.applyDefaults(payload), c.AccessKeySecret)
-	return payload
+func (c *Credential) CalculateSignature(query string) string {
+	var buf bytes.Buffer
+	buf.WriteString(query)
+	buf.WriteString(c.AccessKeySecret)
+	origin := buf.String()
+	hashed := sha1.Sum([]byte(origin))
+
+	sign := hex.EncodeToString(hashed[:])
+
+	return sign
 }
 
-// VerifyAc will return payload with credential and signature
-func (c *Credential) VerifyAc(payload map[string]interface{}) string {
-	return sign(c.applyDefaults(payload), c.AccessKeySecret)
-}
-
-// IsExpired will return if the credential is expired
-func (c *Credential) IsExpired() bool {
-	return c.CanExpire && time.Now().After(c.Expires)
-}
-
-func (c *Credential) applyDefaults(payload map[string]interface{}) map[string]interface{} {
-	values := make(map[string]interface{})
-	for k, v := range payload {
-		values[k] = v
-	}
-	if len(c.SecurityToken) != 0 {
-		values["SecurityToken"] = c.SecurityToken
+func mapToQuery(params map[string]interface{}) string {
+	sortedKeys := extractKeys(params)
+	var buf bytes.Buffer
+	for _, k := range sortedKeys {
+		buf.WriteString(k)
+		buf.WriteString(any2String(params[k]))
 	}
 
-	return values
-}
-
-func queryToMap(query string) map[string]interface{} {
-	values := make(map[string]interface{})
-	urlValues, err := url.ParseQuery(query)
-	if err != nil {
-		return values
-	}
-	for k, v := range urlValues {
-		if len(v) != 0 {
-			values[k] = v[0]
-		}
-	}
-	return values
-}
-
-func mapToQuery(values map[string]interface{}) string {
-	urlValues := url.Values{}
-	for k, v := range values {
-		urlValues.Set(k, any2String(v))
-	}
-	return urlValues.Encode()
+	origin := buf.String()
+	return origin
 }

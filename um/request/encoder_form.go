@@ -28,10 +28,10 @@ func (e *FormEncoder) Encode(req Common) (*http.HttpRequest, error) {
 	_ = httpReq.SetMethod("POST")
 	_ = httpReq.SetQuery("Action", req.GetAction()) // workaround for http log handler
 	_ = httpReq.SetHeader(http.HeaderNameContentType, http.MimeFormURLEncoded)
-	_ = httpReq.SetHeader("AccessKeyId", req.GetAccessKeyId())
-	_ = httpReq.SetHeader("Nonce", req.GetNonce())
-	_ = httpReq.SetHeader("Signature", req.GetSignature())
-	_ = httpReq.SetHeader("Timestamp", req.GetTimestamp())
+	_ = httpReq.SetHeader("X-Access-Key-Id", req.GetAccessKeyId())
+	_ = httpReq.SetHeader("X-Nonce", req.GetNonce())
+	_ = httpReq.SetHeader("X-Signature", req.GetSignature())
+	_ = httpReq.SetHeader("X-Timestamp", req.GetTimestamp())
 
 	// encode struct to map
 	form, err := EncodeForm(req)
@@ -42,7 +42,6 @@ func (e *FormEncoder) Encode(req Common) (*http.HttpRequest, error) {
 	for k, v := range form {
 		payload[k] = v
 	}
-	payload = e.cred.Apply(payload)
 
 	// marshal payload as request body
 	values := url.Values{}

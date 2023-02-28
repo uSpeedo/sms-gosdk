@@ -8,8 +8,16 @@ import (
 
 func main() {
 	cred := &auth.Credential{
-		AccessKeySecret: "46f09bb9fab4f12dfc160dae12273d5332b5debe",
+		AccessKeySecret: "YmZmYWJiZTItZmFlNC00MWMwLTk4MzUtOWM5NjZhZjhhODJm",
 	}
-	d := "Action=DescribeUHostInstance&Limit=10&Region=cn-bj2"
-	fmt.Println(cred.CreateSign(d))
+
+	parMap := make(map[string]interface{}, 0)
+	parMap["AccountId"] = 1
+	parMap["Action"] = "CreateUSMSTemplate"
+	parMap["Purpose"] = 1
+	parMap["TemplateName"] = "Test"
+	parMap["Template"] = "测试模板"
+	parMap["International"] = true
+
+	fmt.Println(cred.CreateSign(parMap))
 }

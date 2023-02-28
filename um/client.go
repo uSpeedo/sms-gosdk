@@ -138,13 +138,6 @@ func (c *Client) InvokeActionWithPatcher(action string, req request.Common, resp
 		)
 	}
 
-	if c.credential.CanExpire && c.credential.IsExpired() {
-		return uerr.NewClientError(
-			uerr.ErrCredentialExpired,
-			fmt.Errorf("credential is expired at %s", c.credential.Expires.Format(time.RFC3339)),
-		)
-	}
-
 	for _, handler := range c.requestHandlers {
 		req, err = handler(c, req)
 		if err != nil {

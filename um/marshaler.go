@@ -32,7 +32,7 @@ func (c *Client) SetupRequest(req request.Common) request.Common {
 	}
 
 	if req.GetEncoder() == nil {
-		req.SetEncoder(request.NewFormEncoder(cfg, c.GetCredential()))
+		req.SetEncoder(request.NewJSONEncoder(cfg, c.GetCredential()))
 	}
 	return req
 }
