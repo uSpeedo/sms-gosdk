@@ -22,6 +22,7 @@ func main() {
 
 	// send request
 	req := client.NewCreateUSMSTemplateRequest()
+
 	req.AccountId = um.Int(1)
 	req.Action = um.String("CreateUSMSTemplate")
 	req.Purpose = um.Int(1)
