@@ -1,7 +1,6 @@
 package main
 
 import (
-	"os"
 	"time"
 
 	"github.com/uSpeedo/usms-sdk-go/um"
@@ -32,11 +31,11 @@ func main() {
 	// should not be set in general usage
 
 	// custom User-Agent for any request
-	cfg.UserAgent = "UCloud-CLI/0.1.0"
+	cfg.UserAgent = "US-SMS-CLI/0.1.0"
 
 	cred := auth.NewCredential()
 
 	// set credential info for any request
 	// it is required
-	cred.AccessKeySecret = os.Getenv("UCLOUD_ACCESS_KEY_SECRET")
+	cred.AccessKeySecret = "Secret key for console application"
 }

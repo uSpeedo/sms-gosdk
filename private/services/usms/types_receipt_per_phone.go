@@ -1,25 +1,21 @@
 package usms
 
-/*
-ReceiptPerPhone - 每个目的手机号的发送回执信息
+//ReceiptPerPhone - Send back information for each destination cell phone number
 
-this model is auto created by um code generater for open api,
-you can also see https://docs.ucloud.cn for detail.
-*/
 type ReceiptPerPhone struct {
 
-	// 手机号码
+	//  Phone Number
 	Phone string
 
-	// 消耗短信条数
+	// Number of consumed SMS
 	CostCount int
 
-	// 回执结果
+	// Reply Results
 	ReceiptResult string
 
-	// 回执结果描述
+	// Description of return results
 	ReceiptDesc string
 
-	// 回执返回时间
+	// Return time
 	ReceiptTime int
 }

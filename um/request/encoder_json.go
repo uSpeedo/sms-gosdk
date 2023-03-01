@@ -28,9 +28,9 @@ func (e *JSONEncoder) Encode(req Common) (*http.HttpRequest, error) {
 	_ = httpReq.SetHeader(http.HeaderNameContentType, http.MimeJSON)
 	_ = httpReq.SetHeader(http.HeaderNameContentType, http.MimeJSON)
 	_ = httpReq.SetHeader("X-Access-Key-Id", req.GetAccessKeyId())
-	_ = httpReq.SetHeader("X-Nonce", req.GetNonce())
-	_ = httpReq.SetHeader("X-Signature", req.GetSignature())
-	_ = httpReq.SetHeader("X-Timestamp", req.GetTimestamp())
+	_ = httpReq.SetHeader("X-nonce", req.GetNonce())
+	_ = httpReq.SetHeader("X-signature", req.GetSignature())
+	_ = httpReq.SetHeader("X-timestamp", req.GetTimestamp())
 	// encode struct to map
 	payload, err := EncodeJSON(req)
 	if err != nil {

@@ -47,12 +47,12 @@ type Common interface {
 
 // CommonBase is the base struct of common request
 type CommonBase struct {
-	Action      *string
-	Signature   *string
-	Timestamp   int64
-	Nonce       *string
-	AccessKeyId *string
+	Action *string
 
+	signature   *string
+	timestamp   int64
+	nonce       *string
+	accessKeyId *string
 	maxRetries  int
 	retryable   bool
 	retryCount  int
@@ -67,35 +67,35 @@ func (c *CommonBase) SetRetryCount(retryCount int) {
 }
 
 func (u *CommonBase) SetSignature(signature string) {
-	u.Signature = &signature
+	u.signature = &signature
 }
 
 func (u *CommonBase) GetSignature() string {
-	return *u.Signature
+	return *u.signature
 }
 
 func (u *CommonBase) SetNonce(nonce string) {
-	u.Nonce = &nonce
+	u.nonce = &nonce
 }
 
 func (u *CommonBase) GetNonce() string {
-	return *u.Nonce
+	return *u.nonce
 }
 
 func (u *CommonBase) SetAccessKeyId(accessKeyId string) {
-	u.AccessKeyId = &accessKeyId
+	u.accessKeyId = &accessKeyId
 }
 
 func (u *CommonBase) GetAccessKeyId() string {
-	return *u.AccessKeyId
+	return *u.accessKeyId
 }
 
 func (u *CommonBase) SetTimestamp(timestamp int64) {
-	u.Timestamp = timestamp
+	u.timestamp = timestamp
 }
 
 func (u *CommonBase) GetTimestamp() string {
-	return cast.ToString(u.Timestamp)
+	return cast.ToString(u.timestamp)
 }
 
 // GetRetryCount will return retry count of request

@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/uSpeedo/usms-sdk-go/private/utils"
 
 	"github.com/uSpeedo/usms-sdk-go/services/usms"
 	"github.com/uSpeedo/usms-sdk-go/um"
@@ -15,6 +16,7 @@ func main() {
 	cfg.LogLevel = log.DebugLevel
 
 	credential := auth.NewCredential()
+	credential.AccessKeyId = "..."
 	credential.AccessKeySecret = "..."
 
 	client := usms.NewClient(&cfg, &credential)
@@ -32,13 +34,24 @@ func main() {
 		"424242",
 	}
 	// add header
-	req.SetNonce("hz3xevqz")
-	req.SetAccessKeyId("314d47318c25a38f5c24df03f6a2a255")
-	req.SetSignature("314d47318c25a38f5c24df03f6a2a255")
+	req.SetNonce(utils.RandStr(10))
+	req.SetAccessKeyId(credential.AccessKeyId)
+	req.SetSignature(credential.CreateSign(makeSendParamMap(req)))
 	req.SetTimestamp(1669370992)
 	resp, err := client.SendUSMSMessage(req)
 	if err != nil {
 		panic(err)
 	}
 	fmt.Printf("%+v", resp)
+}
+
+func makeSendParamMap(req *usms.SendUSMSMessageRequest) map[string]interface{} {
+	m := make(map[string]interface{}, 0)
+	m["AccountId"] = req.AccountId
+	m["SigContent"] = req.SigContent
+	m["TemplateId"] = req.TemplateId
+	m["PhoneNumbers"] = req.PhoneNumbers
+	m["TemplateParams"] = req.TemplateParams
+	m["Action"] = req.Action
+	return m
 }

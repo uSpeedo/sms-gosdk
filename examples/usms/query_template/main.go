@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/uSpeedo/usms-sdk-go/private/utils"
 	"time"
 
 	"github.com/uSpeedo/usms-sdk-go/services/usms"
@@ -16,6 +17,8 @@ func main() {
 	cfg.LogLevel = log.DebugLevel
 
 	credential := auth.NewCredential()
+	credential.AccessKeyId = "..."
+	credential.AccessKeySecret = "..."
 
 	client := usms.NewClient(&cfg, &credential)
 
@@ -23,13 +26,13 @@ func main() {
 	req := client.NewQueryUSMSTemplateRequest()
 	req.AccountId = um.Int(1)
 	req.Action = um.String("QueryUSMSTemplate")
-	req.TemplateId = um.String("UTA2302277HBSY1")
+	req.TemplateId = um.String("UTA23***MIMRPE")
 
-	sign := getSignature(req)
+	sign := credential.CreateSign(makeSignParamMap(req))
 
 	// add header
-	req.SetNonce("hz3xevqz")
-	req.SetAccessKeyId("b9c3be2916bab10f219ec24138e5c27d")
+	req.SetNonce(utils.RandStr(10))
+	req.SetAccessKeyId(credential.AccessKeyId)
 	req.SetSignature(sign)
 	t, _ := time.ParseDuration("-2m")
 	req.SetTimestamp(time.Now().Add(t).Unix())
@@ -40,14 +43,10 @@ func main() {
 	fmt.Printf("%+v", resp)
 }
 
-func getSignature(req *usms.QueryUSMSTemplateRequest) string {
-	cred := &auth.Credential{
-		AccessKeySecret: "YmZmYWJiZTItZmFlNC00MWMwLTk4MzUtOWM5NjZhZjhhODJm",
-	}
-
+func makeSignParamMap(req *usms.QueryUSMSTemplateRequest) map[string]interface{} {
 	m := make(map[string]interface{}, 0)
 	m["AccountId"] = req.AccountId
 	m["TemplateId"] = req.TemplateId
 	m["Action"] = req.Action
-	return cred.CreateSign(m)
+	return m
 }

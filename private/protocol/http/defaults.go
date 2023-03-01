@@ -12,7 +12,7 @@ const (
 const (
 	HeaderNameContentType = "Content-Type"
 	HeaderNameUserAgent   = "User-Agent"
-	HeaderUTimestampMs    = "U-Timestamp-Ms"
+	HeaderUTimestampMs    = "U-timestamp-Ms"
 )
 
 // DefaultHeaders defined default http headers

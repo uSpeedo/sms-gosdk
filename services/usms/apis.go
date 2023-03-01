@@ -13,39 +13,36 @@ import (
 type CreateUSMSTemplateRequest struct {
 	request.CommonBase
 
-	// [公共参数] 项目ID。
+	// [PublicParam] Project ID。
 	AccountId *int `required:"true"`
 
-	// 模板变量属性说明
+	// Template variable property description
 	Instruction *string `required:"false"`
 
-	// 标记是否为国际短信。true:国际短信，false:国内短信，若不传值则默认该值为false
-	International *bool `required:"false"`
-
-	// 短信模板用途类型：1-验证码类短信模板；2-系统通知类短信模板；3-会员推广类短信模板；
+	// SMS template usage types：1-verification Code；2-Notification；3-Market；
 	Purpose *int `required:"true"`
 
-	// 短信模板申请原因说明，字数不超过128，每个中文、符号、英文、数字等都计为1个字。
+	// SMS template application reason explanation
 	Remark *string `required:"false"`
 
-	// 短信模板内容，说明如下：字数不超过500，每个中文、符号、英文、数组等都计为一个字；模板中的变量填写格式：{N}，其中N为大于1的整数，有多个参数时，建议N从1开始顺次，例如：{1}、{2}等；短信模板禁止仅包括变量的情况；
+	// Text message template content，
+	// instructions are as follows: the number of words should not exceed 500, and each symbol, English, array, etc.
+	// is counted as one word; the format of filling in the variables in the template: {N}, where N is an integer greater than 1, and when there are multiple parameters, it is recommended that N starts from 1 in order, for example: {1}, {2}, etc.;
+	// the SMS template prohibits the case of including only variables.
 	Template *string `required:"true"`
 
-	// 短信模板名称，不超过32个字符，每个中文、符号、英文、数字等都计为1个字。
+	// SMS template name，No more than 32 characters, each symbol, English, number, etc. is counted as 1 character.
 	TemplateName *string `required:"true"`
-
-	// 当Purpose为3时，也即会员推广类短信模板，该项必填。枚举值：TD退订、回T退订、回N退订、回TD退订、退订回T、退订回D、退订回TD、退订回复T、退订回复D、退订回复N、退订回复TD、拒收回T
-	UnsubscribeInfo *string `required:"false"`
 }
 
 // CreateUSMSTemplateResponse is response schema for CreateUSMSTemplate action
 type CreateUSMSTemplateResponse struct {
 	response.CommonBase
 
-	// 返回状态码描述，如果操作成功，默认返回为空
+	// Error description when error occurs
 	Message string
 
-	// 短信模板ID（短信模板申请时的工单ID）
+	// SMS template ID (work order ID)
 	TemplateId string
 }
 
@@ -84,10 +81,10 @@ func (c *USMSClient) CreateUSMSTemplate(req *CreateUSMSTemplateRequest) (*Create
 type DeleteUSMSTemplateRequest struct {
 	request.CommonBase
 
-	// 项目ID
+	// [PublicParam] Project ID。
 	AccountId *int `required:"true"`
 
-	// 模板ID（也即短信模板申请时的工单ID），支持以数组的方式，举例，以TemplateIds.0、TemplateIds.1...TemplateIds.N方式传入
+	// Template ID (work order ID)，Support as an array, for example，以TemplateIds.0、TemplateIds.1...TemplateIds.N
 	TemplateIds []string `required:"true"`
 }
 
@@ -95,7 +92,7 @@ type DeleteUSMSTemplateRequest struct {
 type DeleteUSMSTemplateResponse struct {
 	response.CommonBase
 
-	// 返回状态码描述，如果操作成功，默认返回为空
+	// Error description when error occurs
 	Message string
 }
 
@@ -134,10 +131,10 @@ func (c *USMSClient) DeleteUSMSTemplate(req *DeleteUSMSTemplateRequest) (*Delete
 type GetUSMSSendReceiptRequest struct {
 	request.CommonBase
 
-	// [公共参数] 项目ID。
+	// [PublicParam] Project ID。
 	AccountId *int `required:"true"`
 
-	// 发送短信时返回的SessionNo集合，SessionNoSet.0,SessionNoSet.1....格式，单次调用集合数需控制在100个以内
+	// The set of SessionNo returned when sending SMS，SessionNoSet.0,SessionNoSet.1....Style，The number of collections in a single call should be limited to 100
 	SessionNoSet []string `required:"true"`
 }
 
@@ -145,10 +142,10 @@ type GetUSMSSendReceiptRequest struct {
 type GetUSMSSendReceiptResponse struct {
 	response.CommonBase
 
-	// 回执信息集合
+	// Collection of return information
 	Data []ReceiptPerSession
 
-	// 错误描述
+	// Error description when error occurs
 	Message string
 }
 
@@ -187,10 +184,10 @@ func (c *USMSClient) GetUSMSSendReceipt(req *GetUSMSSendReceiptRequest) (*GetUSM
 type QueryUSMSTemplateRequest struct {
 	request.CommonBase
 
-	// [公共参数] 项目ID。
+	// [PublicParam] Project ID。
 	AccountId *int `required:"true"`
 
-	// 模板ID
+	// Template ID
 	TemplateId *string `required:"true"`
 }
 
@@ -198,10 +195,10 @@ type QueryUSMSTemplateRequest struct {
 type QueryUSMSTemplateResponse struct {
 	response.CommonBase
 
-	// 短信模板明细信息，各字段说明详见OutTemplate
+	// SMS template detail information，Field descriptions are detailed in:OutTemplate
 	Data OutTemplate
 
-	// 当RetCode不为0时，Message中显示具体错误描述
+	// Error description when error occurs
 	Message string
 }
 
@@ -240,7 +237,7 @@ func (c *USMSClient) QueryUSMSTemplate(req *QueryUSMSTemplateRequest) (*QueryUSM
 type SendBatchUSMSMessageRequest struct {
 	request.CommonBase
 
-	// [公共参数] 项目ID。
+	// [PublicParam] Project ID。
 	AccountId *int `required:"true"`
 
 	// 批量发送内容，该参数是json数组的base64编码结果。发送内容json数组中，每个“模板+签名”组合作为一个子项，每个子项内支持多个号码，示例：发送内容json数组（base64编码前）：[{"TemplateId": "UTA20212831C85C", "SigContent": "UCloud", "Target": [{"TemplateParams": ["123456"], "Phone": "18500000123", "ExtendCode": "123", "UserId": "456"} ] } ]   。json数组中各参数的定义："TemplateId":模板ID，"SigContent"短信签名内容，"Target"具体到号码粒度的发送内容。"Target"中的具体字段有："TemplateParams"实际发送的模板参数（若使用的是无参数模板，该参数不能传值），"Phone"手机号码, "ExtendCode"短信扩展码, "UserId"自定义业务标识ID。其中必传参数为"TemplateId", "SigContent", "Target"（"Target"中必传参数为"Phone"）。实际调用本接口时TaskContent传值（发送内容base64编码后）为：W3siVGVtcGxhdGVJZCI6ICJVVEEyMDIxMjgzMUM4NUMiLCAiU2lnQ29udGVudCI6ICJVQ2xvdWQiLCAiVGFyZ2V0IjogW3siVGVtcGxhdGVQYXJhbXMiOiBbIjEyMzQ1NiJdLCAiUGhvbmUiOiAiMTg1MDAwMDAxMjMiLCAiRXh0ZW5kQ29kZSI6ICIxMjMiLCAiVXNlcklkIjogIjQ1NiJ9IF0gfSBdIA==
@@ -254,7 +251,7 @@ type SendBatchUSMSMessageResponse struct {
 	// 未发送成功的详情，返回码非0时该字段有效，可根据该字段数据重发
 	FailContent []BatchInfo
 
-	// 发生错误时表示错误描述
+	// Error description when error occurs
 	Message string
 
 	// 本次请求Uuid
@@ -302,25 +299,25 @@ func (c *USMSClient) SendBatchUSMSMessage(req *SendBatchUSMSMessageRequest) (*Se
 type SendUSMSMessageRequest struct {
 	request.CommonBase
 
-	// [公共参数] 项目ID。
+	// [PublicParam] Project ID。
 	AccountId *int `required:"true"`
 
-	// 短信扩展码，格式为阿拉伯数字串，默认不开通，如需开通请联系 UCloud技术支持
+	// SMS Extension Code，Format as a string of Arabic numbers
 	ExtendCode *string `required:"false"`
 
-	// 电话号码数组，电话号码格式为(60)1xxxxxxxx，()中为国际长途区号(如中国为86或0086，两种格式都支持)，后面为电话号码.若不传入国际区号，如1851623xxxx，则默认为国内手机号
+	// Phone number array, the phone number format is (60)1xxxxxxxx
 	PhoneNumbers []string `required:"true"`
 
-	// 短信签名内容，请到[USMS控制台](https://console.ucloud.cn/usms)的签名管理页面查看；使用的短信签名必须是已申请并且通过审核；
+	// SMS signature content.
 	SigContent *string `required:"false"`
 
-	// 模板ID（也即短信模板申请时的工单ID），请到[USMS控制台](https://console.ucloud.cn/usms)的模板管理页面查看；使用的短信模板必须是已申请并通过审核；
+	// Template ID
 	TemplateId *string `required:"true"`
 
-	// 模板可变参数，以数组的方式填写，举例，TemplateParams.0，TemplateParams.1，... 若模板中无可变参数，则该项可不填写；若模板中有可变参数，则该项为必填项，参数个数需与变量个数保持一致，否则无法发送；
+	// Template variable parameters, filled in as arrays, for example，TemplateParams.0，TemplateParams.1，... If there are no variable parameters in the template, then this item can not be filled in; if there are variable parameters in the template, then this item is required
 	TemplateParams []string `required:"false"`
 
-	// 自定义的业务标识ID，字符串（ 长度不能超过32 位），不支持 单引号、表情包符号等特殊字符
+	// Customized business ident ID, string (length cannot exceed 32 bits), no special characters such as single quotes, emoticons, etc.
 	UserId *string `required:"false"`
 }
 
@@ -328,13 +325,13 @@ type SendUSMSMessageRequest struct {
 type SendUSMSMessageResponse struct {
 	response.CommonBase
 
-	// 发生错误时表示错误描述
+	// Error description when error occurs
 	Message string
 
-	// 本次提交发送的短信的唯一ID，可根据该值查询本次发送的短信列表
+	// The unique ID of the SMS submit for send this time, you can query the list of SMS sent this time according to this value
 	SessionNo string
 
-	// 本次提交的自定义业务标识ID，仅当发送时传入有效的UserId，才返回该字段。
+	// The custom business ident ID for this submission, which is returned only if a valid UserId is passed in when sending
 	UserId string
 }
 
@@ -353,7 +350,7 @@ func (c *USMSClient) NewSendUSMSMessageRequest() *SendUSMSMessageRequest {
 /*
 API: SendUSMSMessage
 
-调用接口SendUSMSMessage发送短信
+Call SendUSMSMessage api to send SMS
 */
 func (c *USMSClient) SendUSMSMessage(req *SendUSMSMessageRequest) (*SendUSMSMessageResponse, error) {
 	var err error
@@ -373,22 +370,19 @@ func (c *USMSClient) SendUSMSMessage(req *SendUSMSMessageRequest) (*SendUSMSMess
 type UpdateUSMSTemplateRequest struct {
 	request.CommonBase
 
-	// [公共参数] 项目ID。
+	// [PublicParam] Project ID.
 	AccountId *int `required:"true"`
 
-	// 模板变量属性说明
-	Instruction *string `required:"false"`
-
-	// 短信模板申请原因说明，字数不超过128，每个中文、符号、英文、数字等都计为1个字。
+	// SMS template application reason explanation
 	Remark *string `required:"false"`
 
-	// 新的模板内容。模板名称和模板内容必须提供一个，否则会报错。小于等于600个字
+	// New template content
 	Template *string `required:"true"`
 
-	// 短信模板ID
+	// SMS Template ID
 	TemplateId *string `required:"true"`
 
-	// 新的模板名称。小于等于32个字，每个中文、英文、数组、符合都计为一个字
+	// New template name.
 	TemplateName *string `required:"false"`
 }
 
@@ -396,7 +390,7 @@ type UpdateUSMSTemplateRequest struct {
 type UpdateUSMSTemplateResponse struct {
 	response.CommonBase
 
-	// 发生错误时表示错误描述
+	// Error description when error occurs
 	Message string
 }
 
@@ -415,7 +409,7 @@ func (c *USMSClient) NewUpdateUSMSTemplateRequest() *UpdateUSMSTemplateRequest {
 /*
 API: UpdateUSMSTemplate
 
-调用接口UpdateUSMSTemplate修改未通过审核的短信模板，并重新提交审核
+Call UpdateUSMSTemplate api  Modify unvetted SMS templates and resubmitted for review
 */
 func (c *USMSClient) UpdateUSMSTemplate(req *UpdateUSMSTemplateRequest) (*UpdateUSMSTemplateResponse, error) {
 	var err error

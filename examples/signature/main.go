@@ -8,16 +8,15 @@ import (
 
 func main() {
 	cred := &auth.Credential{
-		AccessKeySecret: "YmZmYWJiZTItZmFlNC00MWMwLTk4MzUtOWM5NjZhZjhhODJm",
+		AccessKeySecret: "...",
 	}
 
 	parMap := make(map[string]interface{}, 0)
 	parMap["AccountId"] = 1
 	parMap["Action"] = "CreateUSMSTemplate"
 	parMap["Purpose"] = 1
-	parMap["TemplateName"] = "Test"
-	parMap["Template"] = "测试模板"
-	parMap["International"] = true
+	parMap["TemplateName"] = "test template"
+	parMap["Template"] = "test notice"
 
 	fmt.Println(cred.CreateSign(parMap))
 }

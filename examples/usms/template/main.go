@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/uSpeedo/usms-sdk-go/private/utils"
 	"time"
 
 	"github.com/uSpeedo/usms-sdk-go/services/usms"
@@ -16,6 +17,7 @@ func main() {
 	cfg.LogLevel = log.DebugLevel
 
 	credential := auth.NewCredential()
+	credential.AccessKeyId = "..."
 	credential.AccessKeySecret = "..."
 
 	client := usms.NewClient(&cfg, &credential)
@@ -26,13 +28,12 @@ func main() {
 	req.AccountId = um.Int(1)
 	req.Action = um.String("CreateUSMSTemplate")
 	req.Purpose = um.Int(1)
-	req.TemplateName = um.String("Test")
-	req.Template = um.String("测试模板")
-	req.International = um.Bool(true)
+	req.TemplateName = um.String("sdk test")
+	req.Template = um.String("sdk template example")
 	// add header
-	req.SetNonce("hz3xevqz")
-	req.SetAccessKeyId("b9c3be2916bab10f219ec24138e5c27d")
-	req.SetSignature("23756362a77cd0a1f798e574b644664c23df6dfa")
+	req.SetNonce(utils.RandStr(10))
+	req.SetAccessKeyId(credential.AccessKeyId)
+	req.SetSignature(credential.CreateSign(makeCreateTemplateParamMap(req)))
 	t, _ := time.ParseDuration("-2m")
 	req.SetTimestamp(time.Now().Add(t).Unix())
 	resp, err := client.CreateUSMSTemplate(req)
@@ -40,4 +41,14 @@ func main() {
 		panic(err)
 	}
 	fmt.Printf("%+v", resp)
+}
+
+func makeCreateTemplateParamMap(req *usms.CreateUSMSTemplateRequest) map[string]interface{} {
+	m := make(map[string]interface{}, 0)
+	m["AccountId"] = req.AccountId
+	m["Action"] = req.Action
+	m["Purpose"] = req.Purpose
+	m["TemplateName"] = req.TemplateName
+	m["Template"] = req.Template
+	return m
 }

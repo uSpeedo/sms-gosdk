@@ -1,16 +1,12 @@
 package usms
 
-/*
-ReceiptPerSession - 每个提交的回执结果集合
+// ReceiptPerSession - The set of return results for each submission
 
-this model is auto created by um code generater for open api,
-you can also see https://docs.ucloud.cn for detail.
-*/
 type ReceiptPerSession struct {
 
-	// 发送短信时返回的SessionNo
+	// SessionNo returned when sending SMS
 	SessionNo string
 
-	// 每个手机号的短信回执信息集合
+	// Collection of SMS return messages for each cell phone number
 	ReceiptSet []ReceiptPerPhone
 }
