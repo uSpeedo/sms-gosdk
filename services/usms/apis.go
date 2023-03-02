@@ -60,8 +60,6 @@ func (c *USMSClient) NewCreateUSMSTemplateRequest() *CreateUSMSTemplateRequest {
 
 /*
 API: CreateUSMSTemplate
-
-调用接口CreateUSMSTemplate申请短信模板
 */
 func (c *USMSClient) CreateUSMSTemplate(req *CreateUSMSTemplateRequest) (*CreateUSMSTemplateResponse, error) {
 	var err error
@@ -110,8 +108,6 @@ func (c *USMSClient) NewDeleteUSMSTemplateRequest() *DeleteUSMSTemplateRequest {
 
 /*
 API: DeleteUSMSTemplate
-
-调用接口DeleteUSMSTemplate删除短信模板
 */
 func (c *USMSClient) DeleteUSMSTemplate(req *DeleteUSMSTemplateRequest) (*DeleteUSMSTemplateResponse, error) {
 	var err error
@@ -163,8 +159,6 @@ func (c *USMSClient) NewGetUSMSSendReceiptRequest() *GetUSMSSendReceiptRequest {
 
 /*
 API: GetUSMSSendReceipt
-
-调用接口GetUSMSSendReceipt短信发送状态信息
 */
 func (c *USMSClient) GetUSMSSendReceipt(req *GetUSMSSendReceiptRequest) (*GetUSMSSendReceiptResponse, error) {
 	var err error
@@ -216,8 +210,6 @@ func (c *USMSClient) NewQueryUSMSTemplateRequest() *QueryUSMSTemplateRequest {
 
 /*
 API: QueryUSMSTemplate
-
-调用接口QueryUSMSTemplate查询短信模板申请状态
 */
 func (c *USMSClient) QueryUSMSTemplate(req *QueryUSMSTemplateRequest) (*QueryUSMSTemplateResponse, error) {
 	var err error
@@ -240,15 +232,15 @@ type SendBatchUSMSMessageRequest struct {
 	// [PublicParam] Project ID。
 	AccountId *int `required:"true"`
 
-	// 批量发送内容，该参数是json数组的base64编码结果。发送内容json数组中，每个“模板+签名”组合作为一个子项，每个子项内支持多个号码，示例：发送内容json数组（base64编码前）：[{"TemplateId": "UTA20212831C85C", "SigContent": "UCloud", "Target": [{"TemplateParams": ["123456"], "Phone": "18500000123", "ExtendCode": "123", "UserId": "456"} ] } ]   。json数组中各参数的定义："TemplateId":模板ID，"SigContent"短信签名内容，"Target"具体到号码粒度的发送内容。"Target"中的具体字段有："TemplateParams"实际发送的模板参数（若使用的是无参数模板，该参数不能传值），"Phone"手机号码, "ExtendCode"短信扩展码, "UserId"自定义业务标识ID。其中必传参数为"TemplateId", "SigContent", "Target"（"Target"中必传参数为"Phone"）。实际调用本接口时TaskContent传值（发送内容base64编码后）为：W3siVGVtcGxhdGVJZCI6ICJVVEEyMDIxMjgzMUM4NUMiLCAiU2lnQ29udGVudCI6ICJVQ2xvdWQiLCAiVGFyZ2V0IjogW3siVGVtcGxhdGVQYXJhbXMiOiBbIjEyMzQ1NiJdLCAiUGhvbmUiOiAiMTg1MDAwMDAxMjMiLCAiRXh0ZW5kQ29kZSI6ICIxMjMiLCAiVXNlcklkIjogIjQ1NiJ9IF0gfSBdIA==
-	TaskContent *string `required:"true"`
+	// Batch Send
+	Target *SendBatchInfo `required:"true"`
 }
 
 // SendBatchUSMSMessageResponse is response schema for SendBatchUSMSMessage action
 type SendBatchUSMSMessageResponse struct {
 	response.CommonBase
 
-	// 未发送成功的详情，返回码非0时该字段有效，可根据该字段数据重发
+	// Details of unsuccessful transmission, the field is valid when the return code is non-zero, and the data can be resent according to this field
 	FailContent []BatchInfo
 
 	// Error description when error occurs
@@ -257,10 +249,10 @@ type SendBatchUSMSMessageResponse struct {
 	// 本次请求Uuid
 	ReqUuid string
 
-	// 本次提交发送任务的唯一ID，可根据该值查询本次发送的短信列表。注：成功提交短信数大于0时，才返回该字段
+	// The unique ID of this submitted sending task. Note: This field is returned only when the number of successfully submitted SMS is greater than 0
 	SessionNo string
 
-	// 成功提交短信（未拆分）条数
+	// Number of successful SMS submission
 	SuccessCount int
 }
 
@@ -278,8 +270,6 @@ func (c *USMSClient) NewSendBatchUSMSMessageRequest() *SendBatchUSMSMessageReque
 
 /*
 API: SendBatchUSMSMessage
-
-调用SendBatchUSMSMessage接口批量发送短信
 */
 func (c *USMSClient) SendBatchUSMSMessage(req *SendBatchUSMSMessageRequest) (*SendBatchUSMSMessageResponse, error) {
 	var err error
@@ -288,77 +278,6 @@ func (c *USMSClient) SendBatchUSMSMessage(req *SendBatchUSMSMessageRequest) (*Se
 	reqCopier := *req
 
 	err = c.Client.InvokeAction("SendBatchUSMSMessage", &reqCopier, &res)
-	if err != nil {
-		return &res, err
-	}
-
-	return &res, nil
-}
-
-// SendUSMSMessageRequest is request schema for SendUSMSMessage action
-type SendUSMSMessageRequest struct {
-	request.CommonBase
-
-	// [PublicParam] Project ID。
-	AccountId *int `required:"true"`
-
-	// SMS Extension Code，Format as a string of Arabic numbers
-	ExtendCode *string `required:"false"`
-
-	// Phone number array, the phone number format is (60)1xxxxxxxx
-	PhoneNumbers []string `required:"true"`
-
-	// SMS signature content.
-	SigContent *string `required:"false"`
-
-	// Template ID
-	TemplateId *string `required:"true"`
-
-	// Template variable parameters, filled in as arrays, for example，TemplateParams.0，TemplateParams.1，... If there are no variable parameters in the template, then this item can not be filled in; if there are variable parameters in the template, then this item is required
-	TemplateParams []string `required:"false"`
-
-	// Customized business ident ID, string (length cannot exceed 32 bits), no special characters such as single quotes, emoticons, etc.
-	UserId *string `required:"false"`
-}
-
-// SendUSMSMessageResponse is response schema for SendUSMSMessage action
-type SendUSMSMessageResponse struct {
-	response.CommonBase
-
-	// Error description when error occurs
-	Message string
-
-	// The unique ID of the SMS submit for send this time, you can query the list of SMS sent this time according to this value
-	SessionNo string
-
-	// The custom business ident ID for this submission, which is returned only if a valid UserId is passed in when sending
-	UserId string
-}
-
-// NewSendUSMSMessageRequest will create request of SendUSMSMessage action.
-func (c *USMSClient) NewSendUSMSMessageRequest() *SendUSMSMessageRequest {
-	req := &SendUSMSMessageRequest{}
-
-	// setup request with client config
-	c.Client.SetupRequest(req)
-
-	// setup retryable with default retry policy (retry for non-create action and common error)
-	req.SetRetryable(false)
-	return req
-}
-
-/*
-API: SendUSMSMessage
-
-Call SendUSMSMessage api to send SMS
-*/
-func (c *USMSClient) SendUSMSMessage(req *SendUSMSMessageRequest) (*SendUSMSMessageResponse, error) {
-	var err error
-	var res SendUSMSMessageResponse
-
-	reqCopier := *req
-
-	err = c.Client.InvokeAction("SendUSMSMessage", &reqCopier, &res)
 	if err != nil {
 		return &res, err
 	}
@@ -408,8 +327,6 @@ func (c *USMSClient) NewUpdateUSMSTemplateRequest() *UpdateUSMSTemplateRequest {
 
 /*
 API: UpdateUSMSTemplate
-
-Call UpdateUSMSTemplate api  Modify unvetted SMS templates and resubmitted for review
 */
 func (c *USMSClient) UpdateUSMSTemplate(req *UpdateUSMSTemplateRequest) (*UpdateUSMSTemplateResponse, error) {
 	var err error

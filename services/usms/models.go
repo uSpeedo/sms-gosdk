@@ -107,3 +107,22 @@ type BatchInfo struct {
 	// Template ID
 	TemplateId string
 }
+
+/*SenBatchInfo*/
+type SendBatchInfo struct {
+	// Template ID
+	TemplateId string
+	// Batch send content
+	Targets []SendBatchTarget
+}
+
+type SendBatchTarget struct {
+	// User-defined ID
+	UserId string
+	// Extension Number
+	ExtendCode string
+	// Template Parameters
+	TemplateParams []string
+	//Mobile Number
+	Phone string
+}

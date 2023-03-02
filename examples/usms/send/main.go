@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/uSpeedo/usms-sdk-go/private/utils"
+	"time"
 
 	"github.com/uSpeedo/usms-sdk-go/services/usms"
 	"github.com/uSpeedo/usms-sdk-go/um"
@@ -22,36 +23,32 @@ func main() {
 	client := usms.NewClient(&cfg, &credential)
 
 	// send request
-	req := client.NewSendUSMSMessageRequest()
+	req := client.NewSendBatchUSMSMessageRequest()
 	req.AccountId = um.Int(1)
-	req.SigContent = um.String("...")
-	req.TemplateId = um.String("UTA2***50501BD")
-	req.PhoneNumbers = []string{
-		"...",
-		"...",
+	req.Action = um.String("SendBatchUSMSMessage")
+	req.Target = &usms.SendBatchInfo{
+		TemplateId: "...",
+		Targets: []usms.SendBatchTarget{
+			{TemplateParams: []string{"1311"}, Phone: "138xxxx1123"},
+		},
 	}
-	req.TemplateParams = []string{
-		"424242",
-	}
-	// add header
+	//add header
 	req.SetNonce(utils.RandStr(10))
 	req.SetAccessKeyId(credential.AccessKeyId)
 	req.SetSignature(credential.CreateSign(makeSendParamMap(req)))
-	req.SetTimestamp(1669370992)
-	resp, err := client.SendUSMSMessage(req)
+	t, _ := time.ParseDuration("-2m")
+	req.SetTimestamp(time.Now().Add(t).Unix())
+	resp, err := client.SendBatchUSMSMessage(req)
 	if err != nil {
 		panic(err)
 	}
 	fmt.Printf("%+v", resp)
 }
 
-func makeSendParamMap(req *usms.SendUSMSMessageRequest) map[string]interface{} {
+func makeSendParamMap(req *usms.SendBatchUSMSMessageRequest) map[string]interface{} {
 	m := make(map[string]interface{}, 0)
 	m["AccountId"] = req.AccountId
-	m["SigContent"] = req.SigContent
-	m["TemplateId"] = req.TemplateId
-	m["PhoneNumbers"] = req.PhoneNumbers
-	m["TemplateParams"] = req.TemplateParams
+	m["Target"] = req.Target
 	m["Action"] = req.Action
 	return m
 }
