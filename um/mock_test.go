@@ -279,7 +279,7 @@ func TestClient_http_mock(t *testing.T) {
 
 func newTestClient() *Client {
 	cfg := NewConfig()
-	cfg.BaseUrl = "https://api.ucloud.cn"
+	cfg.BaseUrl = "https://api.uspeedo.com/api"
 	cfg.LogLevel = log.DebugLevel
 	cfg.Timeout = 5 * time.Second
 	cfg.MaxRetries = 1

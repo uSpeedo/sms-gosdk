@@ -112,8 +112,10 @@ type BatchInfo struct {
 type SendBatchInfo struct {
 	// Template ID
 	TemplateId string
+	// Sender ID
+	SenderId string
 	// Batch send content
-	Targets []SendBatchTarget
+	Target []SendBatchTarget
 }
 
 type SendBatchTarget struct {

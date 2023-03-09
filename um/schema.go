@@ -7,6 +7,7 @@ import (
 var (
 	String            = request.String
 	StringValue       = request.StringValue
+	StringArray       = request.StringArray
 	Int               = request.Int
 	IntValue          = request.IntValue
 	Bool              = request.Bool

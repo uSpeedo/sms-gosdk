@@ -26,7 +26,7 @@ func main() {
 	req := client.NewQueryUSMSTemplateRequest()
 	req.AccountId = um.Int(1)
 	req.Action = um.String("QueryUSMSTemplate")
-	req.TemplateId = um.String("UTA23***MIMRPE")
+	req.TemplateId = []string{"UTA230***IMRPE"}
 
 	sign := credential.CreateSign(makeSignParamMap(req))
 

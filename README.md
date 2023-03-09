@@ -1,11 +1,7 @@
-<p align="center">
-    <img src="https://ucloud-sdk.dl.ufileos.com/logos%2Flogo-mini.png" />
-</p>
-
 <h1 align="center">USMS Go SDK</h1>
 
-- [Website](https://www.ucloud.cn/)
-- [Documentation](https://docs.ucloud.cn/opensdk-go/README)
+- [Website](https://uspeedo.com/)
+- [Documentation](https://github.com/uSpeedo/usms-sdk-go/blob/master/README.md)
 
 ## Installation
 
@@ -56,7 +52,7 @@ dep ensure -add github.com/uSpeedo/usms-sdk-go
 
 Currently, Go SDK use `AccessKeyId/AccessKeySecret` as authentication method, the key can be found from：
 
-- [UAPI Key Generation](https://console.ucloud.cn/uapi/apikey)
+- [UAPI Key Generation](https://uspeedo.com/)
 
 Here is a simple example：
 

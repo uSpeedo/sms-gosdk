@@ -4,6 +4,11 @@ import (
 	"time"
 )
 
+// StringArray will return a pointer to string array
+func StringArray(val []string) *[]string {
+	return &val
+}
+
 // String will return a pointer to string
 func String(val string) *string {
 	return &val

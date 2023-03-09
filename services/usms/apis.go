@@ -182,7 +182,7 @@ type QueryUSMSTemplateRequest struct {
 	AccountId *int `required:"true"`
 
 	// Template ID
-	TemplateId *string `required:"true"`
+	TemplateId []string `required:"true"`
 }
 
 // QueryUSMSTemplateResponse is response schema for QueryUSMSTemplate action
@@ -233,7 +233,7 @@ type SendBatchUSMSMessageRequest struct {
 	AccountId *int `required:"true"`
 
 	// Batch Send
-	Target *SendBatchInfo `required:"true"`
+	TaskContent []SendBatchInfo `required:"true"`
 }
 
 // SendBatchUSMSMessageResponse is response schema for SendBatchUSMSMessage action

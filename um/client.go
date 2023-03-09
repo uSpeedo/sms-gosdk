@@ -22,7 +22,7 @@ import (
 // Version is the version of sdk
 const Version = version.Version
 
-const headerKeyRequestUUID = "X-UCLOUD-REQUEST-UUID"
+const headerKeyRequestUUID = "X-REQUEST-UUID"
 
 type ClientMeta struct {
 	Product string

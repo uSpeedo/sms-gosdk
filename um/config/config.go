@@ -39,7 +39,7 @@ type Config struct {
 // NewConfig will return a new client config with default options.
 func NewConfig() Config {
 	cfg := Config{
-		BaseUrl:             "http://10.68.97.147:11000/api",
+		BaseUrl:             "https://api.uspeedo.com/api",
 		Timeout:             30 * time.Second,
 		MaxRetries:          0,
 		LogLevel:            log.WarnLevel,
