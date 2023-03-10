@@ -1,7 +1,7 @@
 <h1 align="center">USMS Go SDK</h1>
 
-- [Website](https://uspeedo.com/)
-- [Documentation](https://github.com/uSpeedo/usms-sdk-go/blob/master/README.md)
+- [Website](https://uspeedo.com)
+- [Documentation]([Hello from uSpeedo | uSpeedo](https://docs.uspeedo.com))
 
 ## Installation
 
@@ -52,7 +52,7 @@ dep ensure -add github.com/uSpeedo/usms-sdk-go
 
 Currently, Go SDK use `AccessKeyId/AccessKeySecret` as authentication method, the key can be found from：
 
-- [UAPI Key Generation](https://uspeedo.com/)
+- [UAPI Key Generation](https://console.uspeedo.com/dashboard)
 
 Here is a simple example：
 
