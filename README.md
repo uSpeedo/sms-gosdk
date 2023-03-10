@@ -60,7 +60,10 @@ Here is a simple example：
 package main
 
 import (
+	"encoding/json"
 	"fmt"
+	"github.com/uSpeedo/usms-sdk-go/private/utils"
+	"time"
 
 	"github.com/uSpeedo/usms-sdk-go/services/usms"
 	"github.com/uSpeedo/usms-sdk-go/um"
@@ -74,31 +77,46 @@ func main() {
 	cfg.LogLevel = log.DebugLevel
 
 	credential := auth.NewCredential()
+	credential.AccessKeyId = "..."
 	credential.AccessKeySecret = "..."
 
 	client := usms.NewClient(&cfg, &credential)
-
 	// send request
-	req := client.NewSendUSMSMessageRequest()
-	req.SigContent = um.String("...")
-	req.TemplateId = um.String("UTA2***50501BD")
-	req.PhoneNumbers = []string{
-		"...",
-		"...",
+	req := client.NewSendBatchUSMSMessageRequest()
+	req.AccountId = um.Int(0)
+	req.Action = um.String("SendBatchUSMSMessage")
+	req.TaskContent = []usms.SendBatchInfo{
+		{
+			TemplateId: "...",
+			SenderId:   "",
+			Target: []usms.SendBatchTarget{
+				{
+					Phone: "130xxxx1321",
+				},
+				{
+					Phone: "130xxxx1321",
+				},
+			},
+		},
 	}
-	req.TemplateParams = []string{
-		"424242",
-	}
-	// add header
-	req.SetNonce("hz3xevqz")
-	req.SetAccessKeyId("314d47318c25a38f5c24df03f6a2a255")
-	req.SetSignature("314d47318c25a38f5c24df03f6a2a255")
-	req.SetTimestamp(1669370992)
-	resp, err := client.SendUSMSMessage(req)
+	//add header
+	req.SetNonce(utils.RandStr(10))
+	req.SetAccessKeyId(credential.AccessKeyId)
+	req.SetSignature(credential.CreateSign(JSONMethod(req)))
+	t, _ := time.ParseDuration("-2m")
+	req.SetTimestamp(time.Now().Add(t).Unix())
+	resp, err := client.SendBatchUSMSMessage(req)
 	if err != nil {
 		panic(err)
 	}
 	fmt.Printf("%+v", resp)
+}
+
+func JSONMethod(content interface{}) map[string]interface{} {
+	data, _ := json.Marshal(&content)
+	m := make(map[string]interface{})
+	_ = json.Unmarshal(data, &m)
+	return m
 }
 
 
