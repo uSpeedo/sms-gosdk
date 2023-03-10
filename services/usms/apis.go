@@ -190,7 +190,7 @@ type QueryUSMSTemplateResponse struct {
 	response.CommonBase
 
 	// SMS template detail information，Field descriptions are detailed in:OutTemplate
-	Data OutTemplate
+	Data []OutTemplate
 
 	// Error description when error occurs
 	Message string
