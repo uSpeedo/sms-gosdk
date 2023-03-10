@@ -1,7 +1,7 @@
 <h1 align="center">USMS Go SDK</h1>
 
 - [Website](https://uspeedo.com)
-- [Documentation]([Hello from uSpeedo | uSpeedo](https://docs.uspeedo.com))
+- [Hello from uSpeedo | uSpeedo](https://docs.uspeedo.com)
 
 ## Installation
 
